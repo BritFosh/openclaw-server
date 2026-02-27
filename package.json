@@ -1,18 +1,12 @@
 {
   "name": "openclaw-server",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "private": true,
   "engines": {
-    "node": ">=22.12.0"
+    "node": "22.x"
   },
   "scripts": {
     "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "openclaw": "^2026.2.26"
-  }
+  "dependencies": {}
 }
