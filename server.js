@@ -23,19 +23,13 @@ const server = http.createServer(async (req, res) => {
       const chatId = update.message.chat.id;
       const text = update.message.text;
 
-      // Load OpenClaw inside the request
-      const OpenClaw = require("openclaw");
-      const agent = new OpenClaw();
-
-      const result = await agent.run(text);
-
-      // Send reply back to Telegram
+      // TEMPORARY STATIC RESPONSE
       await fetch(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           chat_id: chatId,
-          text: typeof result === "string" ? result : JSON.stringify(result)
+          text: "Webhook received: " + text
         })
       });
 
