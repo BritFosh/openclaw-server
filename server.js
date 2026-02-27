@@ -1,8 +1,11 @@
 const http = require("http");
 const https = require("https");
+const OpenClaw = require("openclaw");
 
 const TOKEN = process.env.TELEGRAM_TOKEN;
 const PORT = 8080;
+
+const agent = new OpenClaw();
 
 function sendMessage(chatId, text) {
   const data = JSON.stringify({
@@ -20,14 +23,7 @@ function sendMessage(chatId, text) {
     }
   };
 
-  const req = https.request(options, res => {
-    res.on("data", () => {});
-  });
-
-  req.on("error", error => {
-    console.error("Telegram send error:", error);
-  });
-
+  const req = https.request(options);
   req.write(data);
   req.end();
 }
@@ -45,21 +41,21 @@ const server = http.createServer((req, res) => {
       body += chunk.toString();
     });
 
-    req.on("end", () => {
+    req.on("end", async () => {
       try {
         const update = JSON.parse(body);
-
         const chatId = update.message?.chat?.id;
         const text = update.message?.text;
 
         if (chatId && text) {
-          sendMessage(chatId, `Received: ${text}`);
+          const result = await agent.run(text);
+          sendMessage(chatId, result.output || JSON.stringify(result));
         }
 
         res.writeHead(200);
         res.end("OK");
       } catch (err) {
-        console.error("Parse error:", err);
+        console.error(err);
         res.writeHead(200);
         res.end("Error handled");
       }
