@@ -1,0 +1,16 @@
+{
+  "name": "openclaw-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+  "start": "node server.js"
+}
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "openclaw": "^2026.2.26"
+  }
+}
