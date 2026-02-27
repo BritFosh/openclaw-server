@@ -2,10 +2,12 @@
   "name": "openclaw-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
-  "start": "node server.js"
-}
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
